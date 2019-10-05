@@ -1,0 +1,64 @@
+{
+  "name": "ventera-code-test",
+  "version": "0.1.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.mobile.verity.org/tspecht/vhs-api-nodeserver.git"
+  },
+  "scripts": {
+    "precommitmsg": "echo 'precommit checks' && exit 0",
+    "version": "echo $npm_package_version",
+    "cli_test": "node ./cli_test.js",
+    "start": "export NODE_ENV=production && export PORT=3000 && node ./bin/www",
+    "dev": "export NODE_ENV=development && export PORT=3000 && node ./bin/www",
+    "test": "export PORT=3000 && export NODE_ENV=test && node ./bin/www",
+    "eslint": "eslint  **/*.js --fix --ignore-pattern node_modules/",
+    "test2": "export NODE_ENV=unit && mocha \"./testing/**/*.js\" --recursive"
+  },
+  "pre-commit": [
+    "version",
+    "precommitmsg"
+  ],
+  "dependencies": {
+    "ajv": "^5.5.2",
+    "body-parser": "^1.18.3",
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "debug": "^2.6.9",
+    "ejs": "^2.5.7",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "feature-policy": "^0.2.0",
+    "font-awesome": "^4.7.0",
+    "helmet": "^3.15.0",
+    "helmet-csp": "^2.7.1",
+    "moment": "^2.20.0",
+    "path": "^0.12.7",
+    "uuid": "^3.3.2",
+    "x-xss-protection": "^1.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-date-string": "^0.1.0",
+    "chai-datetime": "^1.5.0",
+    "chai-http": "~3.0.0",
+    "chai-spies": "^1.0.0",
+    "cross-env": "^5.1.6",
+    "expect": "^25.0.0",
+    "istanbul": "~0.4.5",
+    "mocha": "~5.0.0",
+    "nyc": "^14.1.1",
+    "pre-commit": "^1.2.2",
+    "request": "^2.87.0",
+    "rewire": "^4.0.1",
+    "sinon": "^5.0.10",
+    "sinon-chai": "^3.1.0"
+  },
+  "description": "1. Conversion equations     * Formula Conversion Constants         * 9/5 = 1.8             * 9/4 = 2.25             * 10/8 = 1.25     * Conversion algorithms         * Fahrenheit to             * Celsius\t C = ( F - 32) / 1.8             * kelvin\tK = ( F + 459.67) / 1.8             * Rankine\t Ra =  F + 459.67         * Celsius to             * Fahrenheit\t F =  C × 1.8 + 32             * kelvin\tK = C  + 273.15             * Rankine\t Ra =  C × 1.8 + 32 + 459.67         * kelvin to             * Celsius\t C = K - 273.15             * Fahrenheit\t F = K × 1.8 - 459.67             * Rankine\t Ra = K × 1.8         * Rankine to             * Celsius\t C = ( Ra - 32 - 459.67) / 1.8             * Fahrenheit\t F =  Ra - 459.67             * kelvin\tK =  Ra / 1.8",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
+}

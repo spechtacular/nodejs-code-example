@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../../partials/news_head.ejs %>
+</head>
+<body class="thi-mobile">
+
+<header>
+    <% include ../../partials/news_header.ejs %>
+</header>
+
+<div style="max-width: 800px; margin: 0 auto;">
+    <div class="grid-x grid-padding-x">
+        <div class="medium-12 cell" style="padding: 1.5rem;">
+            <!--h3>Parent ID <%= pid %> , is sent = <%= is_sent %></h3-->
+			<h3>Recipients of Notification <%= pid %></h3>
+            <form action="/news/recipients" accept-charset="UTF-8" method="post">
+
+                <table class="display">
+                    <tr>
+                        <th align="left">User ID</th>
+                        <th align="left">Event ID</th>
+                        <th align="left" >Email</th>
+                        <th align="left" >Delete</th>
+                    </tr>
+                    <% var i=0; %>
+                    <% recipients.forEach(function(rcp) { %>
+                        <tr>
+                            <td align="left"><%= rcp[0] %></td>
+                            <td align="left"><%= rcp[1] %></td>
+                            <td align="left"><%= rcp[2] %></td>
+                            <td align="left"><input type="checkbox" id="<%= rcp[1] %>" value="<%= rcp[1] %>" name="recipients"></td>
+                        </tr>
+                        <% i++; %>
+                    <% }); %>
+                </table>
+                <div class="actions">
+                    <input type="submit" class="button primary" data-confirm="Are you sure you want to delete the selected recipients?" value="Delete Recipients" formaction="/news/recipients/<%= pid %>/delete" <%= is_disabled %>/>
+                    <a class="button" href="/news/events/<%= pid %>/show">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center VHMfooter">
+    <% include ../../partials/footer.ejs %>
+</footer>
+</body>
+</html>

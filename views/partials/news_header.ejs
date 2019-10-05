@@ -1,0 +1,47 @@
+<!--div data-sticky-container="data-sticky-container">
+    <div class="sticky" data-sticky="data-sticky" data-margin-top="0">
+        <div class="top-bar mainBanner">
+            <div class="top-bar-left">
+                <span class="title-bar-title">
+                <a href="http://verity.org">
+                    <img style="height: 40px;" src="/assets/logoVerity-1cdcf247aa47b22b0976e494154a24cd574a047fd43f815775702e259b31cdbf.png" /></a>
+                <span style="font-size: 2rem; margin-left: 1rem; line-height: 32px; vertical-align: bottom;">VHM Notifications Menu for <%= process.env.NODE_ENV %> Environment</span></span>
+                <br><br>
+                    <a class="secondary button" href="/news/">List</a>
+                    <a class="secondary button" href="/news/text">Text Only</a>
+                    <a class="secondary button" href="/news/image">Text & Image</a>
+                    <a class="secondary button" href="/news/link">Link</a>
+                    <a class="secondary button" href="/news/video">Video</a>
+                    <a class="secondary button" href="https://logs.mobile.verity.org/dashboards/" target="_blank">Logging</a>
+                    <a class="secondary button" href="/admin">Admin Menu</a>
+                    <a class="secondary button" href="/logoutWeb">Logout</a>
+            </div>
+        </div>
+    </div>
+</div-->
+
+
+<div data-sticky-container>
+  <div class="sticky" data-sticky data-margin-top="0"> 
+    
+    <div class="top-bar mainBanner">
+      <div class="top-bar-left"> <span class="title-bar-title"><a href="/news"><img src="/assets/logoVerity-1cdcf247aa47b22b0976e494154a24cd574a047fd43f815775702e259b31cdbf.png" style="height: 40px;" /></a><br><span style="font-size: 1.25rem; margin-left: 1rem; line-height: 32px; vertical-align: bottom;">Verity Mobile Notifications</span></span> </div>
+		<div class="top-bar-right"><ul class="menu">
+            <li class="active"><a href="/news"><i class="far fa-newspaper-o"></i> Notifications</a></li>
+            <li><a href="/admin"><i class="far fa-gears"></i> Admin</a></li>
+            <li><a href="https://logs.mobile.verity.org/dashboards/"><i class="far fa-chart-line"></i> Usage Logs</a></li>
+			<li> 
+					<ul class="dropdown menu" data-dropdown-menu>
+					  <li role="menu" >
+						<a href="#"><%= user_email %></a>
+						<ul class="menu"  style="background-color: white; box-shadow: #57646E 1px 1px 3px;">
+						  <li><a href="/logoutWeb" class=""><i class="fas fa-power-off"></i> Sign Out</a></li>
+						</ul>
+					  </li>
+					</ul>
+				</li>
+			</ul></div>
+    </div>
+    <!-- End Top Bar --> 
+  </div>
+</div>

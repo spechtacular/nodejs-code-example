@@ -1,0 +1,13 @@
+*.iml
+.idea
+.vscode
+.DS_Store
+tmp*
+node_modules
+.gradle
+atlassian-ide-plugin.xml
+*.out
+*.swp
+*.log
+*.pyc
+*.rdb

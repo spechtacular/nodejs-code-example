@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include ../../partials/news_head.ejs %>
+    </head>
+    <body class="thi-mobile">
+
+    <header>
+        <% include ../../partials/news_header.ejs %>
+    </header>
+
+        <div style="" class="mainContent">
+            <div class="grid-x grid-padding-x">
+                <div class="medium-12 cell" style="padding: 1.5rem;">
+					<div class="callout info sentBanner hide">
+						This notification has already been sent and the content cannot be updated.
+				    </div>
+                    <h2>Edit Notification <!--Parent ID <%= event.id %>, is sent = <%= event.is_sent %> --> </h2>
+                    <form action="/news/videoEvents" accept-charset="UTF-8" method="post">
+
+                        <input type="hidden" name="parent_id" id="parent_id" value="<%= event.id %>" />
+                        <input type="hidden" name="is_sent" id="is_sent" value="<%= event.is_sent %>" />
+						<label>Type</label>
+						<div class="button-group" style="cursor: auto;">
+						  <a class="button disabled">Text Only</a>
+						  <a class="button disabled">Text &amp; Image</a>
+						  <a class="button disabled">Link</a>
+						  <a class="button active">Video</a>
+						</div>
+						
+                        <div class="field">
+                            <label for="event_subscription_id">Source/subscription</label>
+                            <select name="event_subscription_id" id="event_subscription_id">
+                                <% sub_labels.forEach(function(sl) { %>
+                                    <% if (sl.name === event.name) { %>
+                                        <option selected="selected" value="<%= sl.subscriptions_id %> ">
+                                            <%= sl.name %>
+                                        </option>
+                                    <% } else { %>
+                                        <option value="<%= sl.subscriptions_id %>">
+                                            <%= sl.name %>
+                                        </option>
+                                <% } }); %>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="event_title">Title</label>
+                            <input id="event_title" type="text" name="event_title" value="<% if (event.title.includes("\N")) { %> <% } else { %><%= event.title %><% } %>" />
+                        </div>
+						<div>
+							<label class="text">Video</label>
+							<input type="text" disabled="" value="<%= event.videoPath.split("/")[event.videoPath.split("/").length - 1] %>">
+						</div>
+						<div class="grid-x grid-margin-x">
+							<div class="medium-4 cell callout">
+								<h4>QuickTime Version</h4>
+								<video controls="controls" autobuffer="true" class="event_video_quicktime" height="" width="100%" src="<%= event.videoPath %>"></video>
+							</div>
+							<div class="medium-4 cell callout">
+								<h4>MP4 Version</h4>
+								<video controls="controls" autobuffer="true" class="event_video_mp4" height="" width="100%" src="<%= event.videoTranscodedPath %>"></video>
+
+							</div>
+							<div class="medium-4 cell callout">
+								<h4>Thumbnail</h4>
+								<img src="<%= event.videoScreenshotPath %>" style="width: 100%;" class="video_thumbnail"/>
+							</div>
+						</div>
+
+                        <div class="field">
+                            <label id="text-label" class="text required" for="event_text">Video transcript (for accessibility)</label>
+                            <textarea id="event_text" rows="5" name="event_text" required><%= 
+                                event.text 
+                                %></textarea>
+                        </div>
+
+
+                        <br>
+                        <div class="actions">
+							 <input type="submit" value="Send Now" class="button primary sendNowButton"
+                                   formaction="/news/<%= event.id %>/<%= event.sid %>/videoEventsSend"
+                                    <%= is_disabled %> />
+                            <!--input type="submit" value="Save & Send Now" class="button primary saveAndSendNowButton"
+                                   formaction="/news/<%= event.id %>/<%= event.sid %>/videoEventsUpdateSaveSend"
+                                    <%= is_disabled %> /-->
+                            <input type="submit" value="Save for Later" class="button saveForLaterButton"
+                                   formaction="/news/<%= event.id %>/<%= event.sid %>/videoEventsUpdateSave"
+                                    <%= is_disabled %> />
+                            <a class="button"
+                              href="/news/recipients/<%= event.id %>/list?is_sent=<%= event.is_sent %>">Manage Recipients</a>
+                            <a class="button alert deleteButton"
+                               onclick="deleteEvent(<%= event.id %>, <%= event.sid %>, function() {window.location = '/news';});"
+                               href="#"><i class="fas fa-trash"></i> Delete</a>
+                            <a class="button" href="/news">Cancel</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    <footer class="text-center VHMfooter">
+        <% include ../../partials/footer.ejs %>
+    </footer>
+	<script>
+		$(document).ready(function() {
+			var isSent = <%= event.is_sent %>;
+			if (isSent) {
+				$(".sentBanner").removeClass("hide");
+				$("form input").attr("disabled", true);
+				$("form textarea").attr("disabled", true);
+				$("form select").attr("disabled", true);
+				$("h2").html("View Notification");
+				$(".sendNowButton").hide();
+				$(".saveAndSendNowButton").hide();
+				$(".saveForLaterButton").hide();
+			}
+			$(".video_thumbnail").css("height", $(".event_video_quicktime").height());
+			$(window).resize(function () {
+				$(".video_thumbnail").css("height", $(".event_video_quicktime").height());
+			});
+		});
+	</script>
+    </body>
+</html>
