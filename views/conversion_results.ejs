@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Results</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+    </style>
+</head>
+</head>
+<body class="thi-mobile">
+<div style="max-width: 700px; margin: 0 auto;">
+    <div class="grid-x grid-padding-x">
+        <div class="medium-12 cell" style="padding: 1.5rem;">
+            <h2 align="center">Conversion Results</h2>
+
+
+                <table>
+                    <tr>
+                        <th>Input Numerical Measure</th>
+                        <th>Input Unit of Measure</th>
+                        <th>Target Unit of Measure</th>
+                        <th>Student Response</th>
+                        <th>Output</th>
+                    </tr>
+
+                    <% for (var i = 0; i < conversions.length; i++) { %>
+
+                    <tr>
+                        <td>
+                            <%= conversions[i].inputUnitType %>
+                        </td>
+
+                        <td>
+                            <%= conversions[i].targetUnitType %>
+                        </td>
+
+                        <td>
+                            <%= conversions[i].input %>
+                        </td>
+
+                        <td>
+                            <%= conversions[i].response %>
+                        </td>
+
+                        <td>
+                            <%= conversions[i].output %>
+                        </td>
+
+                    </tr>
+                    <%} %>
+
+                </table>
+                <br>
+                <div class="actions">
+                    <a class="button" href="/">New Conversions</a>
+                </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

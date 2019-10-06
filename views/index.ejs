@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+    </style>
+    <title>Conversion Assignment</title>
+</head>
+    <body class="thi-mobile">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="grid-x grid-padding-x">
+                <div class="medium-12 cell" style="padding: 1.5rem;">
+                    <h2 align="center">Conversion Verification</h2>
+
+                    <form action="/verifyConversions" accept-charset="UTF-8" method="post">
+
+                        <table>
+                            <tr>
+                                <th>Input Unit of Measure</th>
+                                <th>Target Unit of Measure</th>
+                                <th>Input Numerical Value</th>
+                                <th>Student Response</th>
+                            </tr>
+
+                            <% for (var i = 0; i < maxConversions; i++) { %>
+
+                            <tr>
+                                <td>
+                                    <select name='conversions[<%=i%>][inputUnitType]' id="inputUnitType">
+                                        <% tempUnits.forEach(function(tu) { %>
+                                            <option value="<%= tu %>">
+                                                <%= tu %>
+                                            </option>
+                                        <%  }); %>
+                                        <% volUnits.forEach(function(vu) { %>
+                                            <option value="<%= vu %>">
+                                                <%= vu %>
+                                            </option>
+                                        <%  }); %>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select name='conversions[<%=i%>][targetUnitType]' id="targetUnitType">
+                                        <% tempUnits.forEach(function(tu) { %>
+                                            <option value="<%= tu %>">
+                                                <%= tu %>
+                                            </option>
+                                        <%  }); %>
+                                        <% volUnits.forEach(function(vu) { %>
+                                            <option value="<%= vu %>">
+                                                <%= vu %>
+                                            </option>
+                                        <%  }); %>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input name='conversions[<%=i%>][input]' type="text" value="" />
+                                </td>
+
+                                <td>
+                                    <input name='conversions[<%=i%>][response]' type="text" value="" />
+                                </td>
+
+                                <input name='conversions[<%=i%>][id]' type="hidden" value="<%=i%>" />
+
+                            </tr>
+                            <%} %>
+
+                        </table>
+                        <br>
+                        <div class="actions">
+                            <input type="submit" value="Verify Conversions" class="button" formaction="/verifyConversions" />
+                            <input type="reset" value="Reset" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -52,7 +52,6 @@ const type_check = {
 
     validateConversionValue(value) {
         let vType = this.get(value);
-        console.log("type="+vType);
         switch (vType) {
             case "string":
                 let newValue = Number(value);

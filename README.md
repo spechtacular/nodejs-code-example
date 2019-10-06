@@ -21,13 +21,15 @@
             * Fahrenheit	 F =  Ra - 459.67
             * kelvin	K =  Ra / 1.8
 
-2. node.js:
-   * install npm packages, they are specified in the package.json file.
-      * npm install
-   * npm scripts defined in package.json:
-      * npm start : start web service on localhost:3000
-      * npm run cli_test : run a command line version for testing and development
-      * npm run load_users : load application users from AD
-      * npm run load_stray_users : load specified users not loaded by load_users
-      * npm run delete_users : delete all users from development database only
-
+2. Development Environment
+    * IntelliJ IDE
+       * node.js:
+           * install npm packages, they are specified in the package.json file.
+              * npm install
+           * npm scripts defined in package.json:
+              * npm start : start web service on localhost:3000
+              * npm run cli_test : run a command line version for testing and development
+              * npm run load_users : load application users from AD
+              * npm run load_stray_users : load specified users not loaded by load_users
+              * npm run delete_users : delete all users from development database only
+        

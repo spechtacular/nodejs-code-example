@@ -1,6 +1,0 @@
-ul.breadcrumb {
-  padding: 0;
-  list-style: none;
-  li { a { text-decoration: none; } display: inline; }
-  li+li:before { content: "/\00a0"; }
-}

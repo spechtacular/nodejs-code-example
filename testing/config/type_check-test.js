@@ -2,11 +2,8 @@ const chai = require('chai'),
     expect = chai.expect,
     chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-require('sinon').createSandbox();
-const moment = require("moment");
 const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
-require('rewire');
 let tc = require('../../config/type_check');
 
 
@@ -15,7 +12,7 @@ describe('type_check testing', ()=>
 
     context('get object type', () =>
     {
-        it('verify get object function', (done) =>
+        it('verify get object parameter', (done) =>
         {
             let testType = {};
             let results = tc.get(testType);
@@ -28,7 +25,7 @@ describe('type_check testing', ()=>
 
     context('get array type', () =>
     {
-        it('verify get array function', (done) =>
+        it('verify get array parameter', (done) =>
         {
             let testType = [];
             let results = tc.get(testType);
@@ -41,7 +38,7 @@ describe('type_check testing', ()=>
 
     context('get number type', () =>
     {
-        it('verify get number function', (done) =>
+        it('verify get number parameter', (done) =>
         {
             let testType = 7;
             let results = tc.get(testType);
@@ -53,7 +50,7 @@ describe('type_check testing', ()=>
 
     context('get boolean type', () =>
     {
-        it('verify get boolean function', (done) =>
+        it('verify get boolean parameter', (done) =>
         {
             let testType = true;
             let results = tc.get(testType);
@@ -65,9 +62,9 @@ describe('type_check testing', ()=>
 
     context('get date type', () =>
     {
-        it('verify get date function', (done) =>
+        it('verify get date parameter', (done) =>
         {
-            let testType = moment.utc();
+            let testType = new Date();
             let results = tc.get(testType);
             //expect(testType).to.be.a.dateString();
             chai.assert.isDefined(results, 'date results is defined');
@@ -78,7 +75,7 @@ describe('type_check testing', ()=>
 
     context('get null type', () =>
     {
-        it('verify get null function', (done) =>
+        it('verify get null parameter', (done) =>
         {
 
             let testType = null;
@@ -91,13 +88,73 @@ describe('type_check testing', ()=>
 
     context('get undefined type', () =>
     {
-        it('verify get undefined function', (done) =>
+        it('verify get undefined parameter', (done) =>
         {
 
             let testType = undefined;
             let results = tc.get(testType);
             chai.assert.isDefined(results, ' undefined results is defined');
             chai.assert.equal(results,"undefined");
+            done();
+        })
+    });
+
+
+    context('validateConversionValue undefined type', () =>
+    {
+        it('verify validateConversionValue undefined parameter', (done) =>
+        {
+
+            let testType = undefined;
+            let results = tc.validateConversionValue(testType);
+            expect(results).to.be.undefined;
+            done();
+        })
+    });
+
+    context('validateConversionValue null type', () =>
+    {
+        it('verify validateConversionValue null parameter', (done) =>
+        {
+
+            let testType = undefined;
+            let results = tc.validateConversionValue(testType);
+            expect(results).to.be.undefined;
+            done();
+        })
+    });
+
+    context('validateConversionValue valid number string type', () =>
+    {
+        it('verify validateConversionValue valid number string parameter', (done) =>
+        {
+            let testType = "345";
+            let results = tc.validateConversionValue(testType);
+            expect(results).to.be.equals(345);
+            expect(results).to.be.a("number");
+            done();
+        })
+    });
+
+    context('validateConversionValue valid number type', () =>
+    {
+        it('verify validateConversionValue valid number parameter', (done) =>
+        {
+            let testType = 345;
+            let results = tc.validateConversionValue(testType);
+            expect(results).to.be.equals(345);
+            expect(results).to.be.a("number");
+            done();
+        })
+    });
+
+    context('validateConversionValue invalid number type', () =>
+    {
+        it('verify validateConversionValue invalid number parameter', (done) =>
+        {
+            let testType = "345hello";
+            let results = tc.validateConversionValue(testType);
+            expect(results).to.be.undefined;
             done();
         })
     });
