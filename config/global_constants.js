@@ -1,9 +1,9 @@
 
 let maxConversions = 10;
-let invalidString = "invalid";
-let correctString = "correct";
-let incorrectString = "incorrect";
-let targetMargin = parseFloat(.1);
+const invalidString = "invalid";
+const correctString = "correct";
+const incorrectString = "incorrect";
+const targetMargin = .1;
 
 if (process.env.NODE_ENV === 'production') {
     maxConversions = 20;

@@ -4,7 +4,7 @@ const chai = require('chai'),
 chai.use(chaiAsPromised);
 const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
-let tc = require('../../config/type_check');
+let tc = require('../config/type_check');
 
 
 describe('type_check testing', ()=>

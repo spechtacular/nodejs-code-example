@@ -3,25 +3,19 @@ const vu = require ('../config/volume_units');
 const gc = require ('../config/global_constants');
 
 
-const self = module.exports = {
+const conversions = {
     processConversionForm(req, res) {
-
-        if (req.body.conversions !== null &&
-            req.body.conversions !== undefined &&
+        if (req.body.conversions  &&
             req.body.conversions.length > 0) {
                 let conversions = Array.prototype.slice.call(req.body.conversions);
-                console.log("cl:"+conversions.length);
+
                 let cnvLength = conversions.length;
                 conversions.forEach(conversion => {
                     console.log("pcf:" + JSON.stringify(conversion));
-                    //console.log("inputUnitType=" + conversion.inputUnitType);
-                    //console.log("targetUnitType=" + conversion.targetUnitType);
 
                     if (tu.matchUnits(conversion.inputUnitType) > -1) {
-                        console.log("temp inputUnitType");
                         if (tu.matchUnits(conversion.targetUnitType) > -1) {
                             // input and output units are both temperature units
-                            console.log("temp lookupConversion");
                             tu.lookupConversion(conversion);
                         } else {
                             // mismatched units
@@ -30,10 +24,9 @@ const self = module.exports = {
                         }
                     } else {
                         if (vu.matchUnits(conversion.inputUnitType) > -1) {
-                            console.log("volume inputUnitType");
                             if (vu.matchUnits(conversion.targetUnitType) > -1) {
-                                console.log("volume lookupConversion");
                                 // input and output units are both volume units
+                                vu.lookupConversion(conversion);
                             } else {
                                 // mismatched units
                                 console.log("volume mismatched");
@@ -49,8 +42,6 @@ const self = module.exports = {
                         return res.status(200).render('conversion_results', {
                             conversions: conversions
                         });
-                    } else {
-                        console.log("cnvLength="+cnvLength);
                     }
                 });
         } else {
@@ -60,3 +51,6 @@ const self = module.exports = {
         }
     }
 };
+
+module.exports = conversions;
+

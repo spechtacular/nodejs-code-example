@@ -3,12 +3,12 @@ const tc = require("./type_check");
 
 const units = ["Kelvin", "Celsius", "Fahrenheit​", "Rankine"];
 
-const cRatio = parseFloat(9 / 5);
-const fRatio = parseFloat(5 / 9);
-const fConst = parseFloat(32.00);
-const rcConst = parseFloat(491.67);
-const kfConst = parseFloat(459.67);
-const kConst = parseFloat(273.15);
+const cRatio = 9 / 5;
+const fRatio = 5 / 9;
+const fConst = 32.00;
+const rcConst = 491.67;
+const kfConst = 459.67;
+const kConst = 273.15;
 
 
 const temperature_units = {
@@ -87,198 +87,173 @@ const temperature_units = {
     },
 
     lookupConversion(conversion) {
-        console.log("inputUnitType:"+conversion.inputUnitType);
         switch (conversion.inputUnitType) {
             case units[0]:
                 // Kelvin
-                console.log("Kelvin");
                 this.kelvinConversions(conversion);
                 break;
             case units[1]:
                 // Celsius
-                console.log("Celsius");
                 this.celsiusConversions(conversion);
                 break;
             case units[2]:
                 // Fahrenheit​
-                console.log("Fahrenheit​");
                 this.fahrenheitConversions(conversion);
                 break;
             case units[3]:
                 // Rankine
-                console.log("Rankine");
                 this.rankineConversions(conversion);
                 break;
             default:
-                console.log("default");
+                console.log("invalid temperature inputUnitType received");
                 conversion.output = gc.invalidString;
-                console.log("invalid:"+JSON.stringify(conversion));
                 break;
         }
     },
 
     kelvinConversions(conversion) {
-        console.log("kelvinConversions targetUnitType:"+conversion.targetUnitType);
         let cnvInput;
 
         switch (conversion.targetUnitType) {
             case units[0]:
                 // Kelvin = Kelvin
-                this.compareResponseToConvertedValue(conversion, conversion.input);
-                console.log("Kelvin = Kelvin " + conversion.input);
-                break;
-            case units[1]:
-                // Celsius
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertKelvinToCelsius(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Kelvin 2 Celsius:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, cnvInput);
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Kelvin 2 Celsius undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
+                }
+                break;
+            case units[1]:
+                // Kelvin 2 Celsius
+                cnvInput = tc.validateConversionValue(conversion.input);
+                if (cnvInput) {
+                    tc.compareResponseToConvertedValue(conversion, this.convertKelvinToCelsius(cnvInput));
+                } else {
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[2]:
-                // Fahrenheit​
+                // Kelvin 2 Fahrenheit​
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertKelvinToFahrenheit(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Kelvin 2 Fahrenheit​:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertKelvinToFahrenheit(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Kelvin 2 Fahrenheit​ undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[3]:
-                // Rankine
+                // Kelvin 2 Rankine
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertKelvinToRankine(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Kelvin 2 Rankine:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertKelvinToRankine(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Kelvin 2 Rankine undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
                 }
                 break;
             default:
-                console.log("Kelvin default:" + conversion.targetUnitType);
+                console.log("invalid targetUnitType received by Kelvin");
                 conversion.output = gc.invalidString;
                 break;
          }
     },
 
     rankineConversions(conversion) {
-        console.log("rankineConversions targetUnitType:"+conversion.targetUnitType);
         let cnvInput;
-
+        console.log("rankineConversions targetUnitType:"+conversion.targetUnitType);
         switch (conversion.targetUnitType) {
 
             case units[0]:
-                // Kelvin
+                // Rankine 2 Kelvin
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertRankineToKelvin(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Rankine 2 Kelvin:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertRankineToKelvin(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Rankine 2 Kelvin undefined input:" + cnvInput);
+                    conversion.output=gc.invalidString;
                 }
                 break;
             case units[1]:
-                // Celsius
+                // Rankine 2 Celsius
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertRankineToCelsius(cnvInput);
-                    this.compareResponseToConvertedValue(conversion,cnvResults);
-                    console.log("Rankine 2 Celsius:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion,this.convertRankineToCelsius(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion,cnvInput);
-                    console.log("Rankine 2 Celsius undefined input:" + cnvInput);
+                    conversion.output=gc.invalidString;
                 }
                 break;
             case units[2]:
-                // Fahrenheit​
+                // Rankine 2 Fahrenheit​
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertRankineToFahrenheit(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Rankine 2 Fahrenheit:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertRankineToFahrenheit(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Rankine 2 Fahrenheit undefined input:" + cnvInput);
+                    conversion.output=gc.invalidString;
                 }
                 break;
             case units[3]:
-                // Rankine
-                this.compareResponseToConvertedValue(conversion, conversion.input);
-                console.log("Rankine = Rankine:" + conversions.input);
+                // Rankine = Rankine
+                cnvInput = tc.validateConversionValue(conversion.input);
+                if (cnvInput) {
+                    tc.compareResponseToConvertedValue(conversion, cnvInput);
+                } else {
+                    conversion.output=gc.invalidString;
+                }
                 break;
             default:
-                console.log("Rankine default:" + targetUnitType);
+                console.log("invalid targetUnitType received by Rankine");
                 conversion.output = gc.invalidString;
                 break;
         }
     },
 
     celsiusConversions(conversion) {
-        console.log("celsiusConversions targetUnitType:"+conversion.targetUnitType);
         let cnvInput;
 
         switch (conversion.targetUnitType) {
             case units[0]:
-                // Kelvin
+                // Celsius 2 Kelvin
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertCelsiusToKelvin(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Celsius 2 Kelvin:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertCelsiusToKelvin(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Celsius 2 Kelvin undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[1]:
-                // Celsius
-                this.compareResponseToConvertedValue(conversion, conversion.input);
-                console.log("Celsius = Celsius:" + conversions.input);
-                break;
-            case units[2]:
-                // Fahrenheit​
+                // Celsius = Celsius
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertCelsiusToFahrenheit(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Celsius 2 Fahrenheit:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, cnvInput);
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Celsius 2 Fahrenheit undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
+                }
+                break;
+            case units[2]:
+                // Celsius 2 Fahrenheit​
+                cnvInput = tc.validateConversionValue(conversion.input);
+                if (cnvInput) {
+                    tc.compareResponseToConvertedValue(conversion, this.convertCelsiusToFahrenheit(cnvInput));
+                } else {
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[3]:
-                // Rankine
+                // Celsius 2 Rankine
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertCelsiusToRankine(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Celsius 2 Rankine:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertCelsiusToRankine(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Celsius 2 Rankine undefined input:" + cnvInput);
+                    conversion.output = gc.invalidString;
                 }
                 break;
             default:
-                console.log("Celsius default:" + targetUnitType);
+                console.log("invalid targetUnitType received by Celsius");
                 conversion.output = gc.invalidString;
                 break;
         }
     },
 
     fahrenheitConversions(conversion) {
-        console.log("fahrenheitConversions targetUnitType:"+conversion.targetUnitType);
         let cnvInput;
 
         switch (conversion.targetUnitType) {
@@ -286,68 +261,46 @@ const temperature_units = {
                 // Kelvin
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertFahrenheitToKelvin(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Fahrenheit 2 Kelvin:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertFahrenheitToKelvin(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Fahrenheit 2 Kelvin undefined input:" + cnvInput);
+                    // Fahrenheit 2 Kelvin undefined input
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[1]:
                 // Celsius
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertFahrenheitToCelsius(cnvInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Fahrenheit 2 Celsius:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertFahrenheitToCelsius(cnvInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Fahrenheit 2 Celsius undefined input:" + cnvInput);
+                    // Fahrenheit 2 Celsius undefined input
+                    conversion.output = gc.invalidString;
                 }
                 break;
             case units[2]:
-                // Fahrenheit​
-                this.compareResponseToConvertedValue(conversion, conversion.input);
-                console.log("Fahrenheit = Fahrenheit:" + conversion.input);
+                // Fahrenheit
+                cnvInput = tc.validateConversionValue(conversion.input);
+                if (cnvInput) {
+                    tc.compareResponseToConvertedValue(conversion, cnvInput);
+                } else {
+                    // "Fahrenheit = Fahrenheit undefined input
+                    conversion.output = gc.invalidString;
+                }
                 break;
             case units[3]:
                 // Rankine
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    let cnvResults = this.convertFahrenheitToRankine(cvsInput);
-                    this.compareResponseToConvertedValue(conversion, cnvResults);
-                    console.log("Fahrenheit 2 Rankine:" + cnvResults);
+                    tc.compareResponseToConvertedValue(conversion, this.convertFahrenheitToRankine(cvsInput));
                 } else {
-                    this.compareResponseToConvertedValue(conversion, cnvInput);
-                    console.log("Fahrenheit 2 Rankine undefined input:" + cnvInput);
+                    // Fahrenheit 2 Rankine undefined input
+                    conversion.output = gc.invalidString;
                 }
                 break;
             default:
-                console.log("Fahrenheit default:" + cnvResults);
+                console.log("unknown Fahrenheit targetUnitType:" + conversion.targetUnitType);
                 conversion.output = gc.invalidString;
                 break;
-        }
-    },
-
-    compareResponseToConvertedValue(conversion,convertedValue) {
-        //console.log("compareResponseToConvertedValue:"+convertedValue);
-        //console.log("compareResponseToConvertedValue:"+JSON.stringify(conversion));
-
-        let response = parseFloat(conversion.response);
-        //console.log("compareResponseToConvertedValue rsp:"+response);
-
-        if (response === undefined ||
-            response === null ||
-            response.isNaN ||
-            (response <= (convertedValue + gc.targetMargin)) &&
-            ((convertedValue - gc.targetMargin) <= response )) {
-            //console.log("correct");
-            conversion.output = gc.correctString;
-        } else {
-            //console.log("incorrect");
-            conversion.response = "<font color=\"red\">"+conversion.response+"</font>"
-            conversion.output = gc.incorrectString;
         }
     }
 

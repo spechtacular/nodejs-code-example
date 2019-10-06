@@ -9,7 +9,7 @@
   "scripts": {
     "precommitmsg": "echo 'precommit checks' && exit 0",
     "version": "echo $npm_package_version",
-    "start": "export NODE_ENV=dev && export PORT=3000 && node ./bin/www",
+    "start": "export NODE_ENV=test && export PORT=3000 && node ./bin/www",
     "eslint": "eslint  **/*.js --fix --ignore-pattern node_modules/",
     "test": "export NODE_ENV=unit && mocha \"./testing/**/*.js\" --recursive"
   },

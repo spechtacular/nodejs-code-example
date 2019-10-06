@@ -1,4 +1,5 @@
 
+const gc = require('../config/global_constants');
 
 const type_check = {
 
@@ -63,6 +64,18 @@ const type_check = {
                 return (value);
             default:
                 return undefined;
+        }
+    },
+
+    compareResponseToConvertedValue(conversion,convertedValue) {
+
+        let response = parseFloat(conversion.response);
+
+        if (response && (response <= (convertedValue + gc.targetMargin)) &&
+            ((convertedValue - gc.targetMargin) <= response )) {
+            conversion.output = gc.correctString;
+        } else {
+            conversion.output = gc.incorrectString;
         }
     }
 
