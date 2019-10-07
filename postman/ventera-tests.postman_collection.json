@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "1fd115d6-a39d-4041-ac42-459b73320bdb",
+		"name": "ventera-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "malformed JSON request causes 500 server error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3402233b-4e00-464a-a283-9ce7d23363ec",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"conversions\":[]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/verifyConversions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"verifyConversions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "malformed JSON request causes 400 server error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3402233b-4e00-464a-a283-9ce7d23363ec",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"conversions\":[]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/verifyConversions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"verifyConversions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "empty JSON request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3402233b-4e00-464a-a283-9ce7d23363ec",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"conversions\":[{}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/verifyConversions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"verifyConversions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit valid conversion data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2c59798-3981-4b14-a759-c0b94f159525",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"conversions\": [{\n\t\t\"inputUnitType\": \"Celsius\",\n\t\t\"targetUnitType\": \"Kelvin\",\n\t\t\"input\": \"45\",\n\t\t\"response\": \"318.2\",\n\t\t\"id\": \"0\"\n\t}, {\n\t\t\"inputUnitType\": \"Rankine\",\n\t\t\"targetUnitType\": \"Fahrenheit​\",\n\t\t\"input\": \"98.6\",\n\t\t\"response\": \"-361.2\",\n\t\t\"id\": \"1\"\n\t}, {\n\t\t\"inputUnitType\": \"Fahrenheit​\",\n\t\t\"targetUnitType\": \"Celsius\",\n\t\t\"input\": \"21\",\n\t\t\"response\": \"-6.1\",\n\t\t\"id\": \"2\"\n\t}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/verifyConversions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"verifyConversions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -20,7 +20,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(68.0, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
         it('verify correct string input convertCelsiusToFahrenheit(20.0) function', (done) =>
         {
@@ -29,7 +29,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(68.0, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
         it('verify invalid input convertCelsiusToFahrenheit(20.0) function', (done) =>
         {
@@ -37,7 +37,8 @@ describe('temperature_units testing', ()=>
             const results = tu.convertCelsiusToFahrenheit(celsius);
             expect(results).to.be.NaN;
             done();
-        })
+        });
+
     });
 
     context('convertCelsiusToKelvin', () =>
@@ -49,7 +50,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(293.15, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertCelsiusToRankine', () =>
@@ -61,7 +62,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(527.67, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertFahrenheitToRankine', () =>
@@ -109,7 +110,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(540.0, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertKelvinToCelsius', () =>
@@ -121,7 +122,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(26.8, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertKelvinToFahrenheit', () =>
@@ -133,7 +134,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(-414.7, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertKelvinToFahrenheit', () =>
@@ -145,7 +146,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(0.0, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertKelvinToFahrenheit', () =>
@@ -157,7 +158,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.closeTo(-459.6, gc.targetMargin);
             expect(results).to.be.a("number");
             done();
-        })
+        });
     });
 
     context('convertRankineToCelsius', () =>
@@ -216,7 +217,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.at.least(0);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
 
         it('verify Fahrenheit​ matches using matchUnits(Fahrenheit​) ', (done) =>
@@ -226,7 +227,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.at.least(0);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
         it('verify Kelvin matches using matchUnits(Kelvin) ', (done) =>
         {
@@ -235,7 +236,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.at.least(0);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
         it('verify Celsius matches using matchUnits(Celsius) ', (done) =>
         {
@@ -244,7 +245,7 @@ describe('temperature_units testing', ()=>
             expect(results).to.be.at.least(0);
             expect(results).to.be.a("number");
             done();
-        })
+        });
 
         it('verify match fails using a bad volume name matchUnits(Celsus) ', (done) =>
         {
@@ -265,7 +266,7 @@ describe('temperature_units testing', ()=>
             expect(parseFloat(cnvObject.response)).to.be.closeTo(345.2, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
 
         it('verify incorrect Rankine lookupConversion(cnvObject) ', (done) =>
         {
@@ -273,19 +274,89 @@ describe('temperature_units testing', ()=>
             tu.lookupConversion(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
+        });
+
+        it('verify invalid unit name lookupConversion(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Rankin","targetUnitType":"Rankine","input":"345.2","response":"345.2","id":"1"};
+            tu.lookupConversion(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
+            done();
+        });
+
+        it('verify invalid empty input lookupConversion(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Rankine","input":"","response":"345.2","id":"0"};
+            tu.lookupConversion(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
+            done();
+        });
+
+
+        it('verify invalid empty response lookupConversion(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Rankine","input":"345.2","response":"","id":"0"};
+            tu.lookupConversion(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
+            done();
+        });
+
+        it('verify invalid empty input and response lookupConversion(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Rankine","input":"","response":"","id":"0"};
+            tu.lookupConversion(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
+            done();
+        });
+
+        it('verify invalid empty inputUnitType lookupConversion(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Rankine","input":"345.2","response":"345.4","id":"1"};
+            tu.lookupConversion(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.incorrectString);
+            done();
         })
+
+
     });
 
     context('celsiusConversions', () =>
     {
+        it('verify correct Celsius celsiusConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Celsius","targetUnitType":"Celsius","input":"46.2","response":"46.15","id":"1"};
+            tu.celsiusConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(46.2, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
+        it('verify correct Fahrenheit celsiusConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Celsius","targetUnitType":"Fahrenheit​","input":"32","response":"89.5","id":"1"};
+            tu.celsiusConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(89.6, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
+        it('verify correct Kelvin celsiusConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Celsius","targetUnitType":"Kelvin","input":"45","response":"318.2","id":"1"};
+            tu.celsiusConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(318.1, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
         it('verify correct Rankine celsiusConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"Celsius","targetUnitType":"Rankine","input":"46.2","response":"574.83","id":"1"};
             tu.celsiusConversions(cnvObject);
-            expect(parseFloat(cnvObject.response)).to.be.closeTo(574.83, gc.targetMargin);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(574.8, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
 
         it('verify incorrect Rankine celsiusConversions(cnvObject) ', (done) =>
         {
@@ -293,7 +364,7 @@ describe('temperature_units testing', ()=>
             tu.celsiusConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
-        })
+        });
 
         it('verify invalid celsiusConversions(cnvObject) ', (done) =>
         {
@@ -306,14 +377,42 @@ describe('temperature_units testing', ()=>
 
     context('fahrenheitConversions', () =>
     {
+
+        it('verify correct Kelvin fahrenheitConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Fahrenheit","targetUnitType":"Kelvin","input":"22","response":"267.594444","id":"1"};
+            tu.fahrenheitConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(267.6, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
+        it('verify correct Rankine fahrenheitConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Fahrenheit","targetUnitType":"Rankine","input":"89","response":"548.67","id":"1"};
+            tu.fahrenheitConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(548.7, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
         it('verify correct Celsius fahrenheitConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"Fahrenheit","targetUnitType":"Celsius","input":"21","response":"-6.111111","id":"1"};
             tu.fahrenheitConversions(cnvObject);
-            expect(parseFloat(cnvObject.response)).to.be.closeTo(-6.111111, gc.targetMargin);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(-6.1, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
+
+        it('verify correct Fahrenheit fahrenheitConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Fahrenheit","targetUnitType":"Fahrenheit​","input":"21.1","response":"21.2","id":"1"};
+            tu.fahrenheitConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(21.1, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
 
         it('verify incorrect Celsius fahrenheitConversions(cnvObject) ', (done) =>
         {
@@ -321,7 +420,7 @@ describe('temperature_units testing', ()=>
             tu.fahrenheitConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
-        })
+        });
 
         it('verify invalid fahrenheitConversions(cnvObject) ', (done) =>
         {
@@ -342,7 +441,16 @@ describe('temperature_units testing', ()=>
             expect(parseFloat(cnvObject.response)).to.be.closeTo(-446.0, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
+
+        it('verify correct Celsius kelvinConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Kelvin","targetUnitType":"Celsius","input":"12.5","response":"-260.65","id":"1"};
+            tu.kelvinConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(-260.6, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
 
         it('verify correct Rankine kelvinConversions(cnvObject) ', (done) =>
         {
@@ -351,7 +459,24 @@ describe('temperature_units testing', ()=>
             expect(parseFloat(cnvObject.response)).to.be.closeTo(49.7, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
+
+        it('verify correct Kelvin kelvinConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Kelvin","targetUnitType":"Kelvin","input":"49.6","response":"49.68","id":"1"};
+            tu.kelvinConversions(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(49.6, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        });
+
+        it('verify incorrect Kelvin kelvinConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"Kelvin","targetUnitType":"Kelvin","input":"49.6","response":"49.8","id":"1"};
+            tu.kelvinConversions(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.incorrectString);
+            done();
+        });
 
         it('verify incorrect Rankine kelvinConversions(cnvObject) ', (done) =>
         {
@@ -359,7 +484,7 @@ describe('temperature_units testing', ()=>
             tu.kelvinConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
-        })
+        });
 
         it('verify invalid kelvinConversions(cnvObject) ', (done) =>
         {
@@ -379,25 +504,25 @@ describe('temperature_units testing', ()=>
             expect(parseFloat(cnvObject.response)).to.be.closeTo(-361.1, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
 
         it('verify correct Celsius rankineConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Celsius","input":"43.8","response":"-248.816667","id":"1"};
             tu.rankineConversions(cnvObject);
-            expect(parseFloat(cnvObject.response)).to.be.closeTo(-248.816667, gc.targetMargin);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(-248.8, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
 
         it('verify correct Kelvin rankineConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Kelvin","input":"29.66","response":"16.477778","id":"1"};
             tu.rankineConversions(cnvObject);
-            expect(parseFloat(cnvObject.response)).to.be.closeTo(16.477778, gc.targetMargin);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(16.5, gc.targetMargin);
             expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
-        })
+        });
 
         it('verify incorrect Fahrenheit rankineConversions(cnvObject) ', (done) =>
         {
@@ -405,20 +530,20 @@ describe('temperature_units testing', ()=>
             tu.rankineConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
-        })
+        });
 
         it('verify invalid rankineConversions(cnvObject) ', (done) =>
         {
-            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"xxx","input":"98.6","response":"-360.8","id":"1"};
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"xxx","input":"-361","response":"-360.8","id":"1"};
             tu.rankineConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.invalidString);
             done();
-        })
+        });
 
-        it('verify incorrect Rankine kelvinConversions(cnvObject) ', (done) =>
+        it('verify incorrect Rankine rankineConversions(cnvObject) ', (done) =>
         {
-            const cnvObject = {"inputUnitType":"Kelvin","targetUnitType":"Rankine","input":"27.6","response":"49.9","id":"1"};
-            tu.kelvinConversions(cnvObject);
+            const cnvObject = {"inputUnitType":"Rankine","targetUnitType":"Rankine","input":"-360.8","response":"-360.5","id":"1"};
+            tu.rankineConversions(cnvObject);
             expect(cnvObject.output).to.be.equal(gc.incorrectString);
             done();
         })

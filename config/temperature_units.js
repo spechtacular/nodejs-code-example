@@ -1,5 +1,5 @@
 const gc = require("./global_constants");
-const tc = require("./type_check");
+const tc = require("./conversion");
 
 const units = ["Kelvin", "Celsius", "Fahrenheit​", "Rankine"];
 
@@ -288,7 +288,7 @@ const temperature_units = {
                 // Rankine
                 cnvInput = tc.validateConversionValue(conversion.input);
                 if (cnvInput) {
-                    tc.compareResponseToConvertedValue(conversion, this.convertFahrenheitToRankine(cvsInput));
+                    tc.compareResponseToConvertedValue(conversion, this.convertFahrenheitToRankine(cnvInput));
                 } else {
                     // Fahrenheit 2 Rankine undefined input
                     conversion.output = gc.invalidString;
