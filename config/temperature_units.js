@@ -38,12 +38,10 @@ const temperature_units = {
     },
 
     convertKelvinToCelsius(kelvin) {
-        console.log("convertKelvinToCelsius");
         if (kelvin < (0)) {
             console.log('below absolute zero (0 K)');
             return 0.0;
         } else {
-            console.log("convertKelvinToCelsius cnv");
             return  parseFloat((kelvin - kConst).toFixed(1));
         }
     },
@@ -152,7 +150,7 @@ const temperature_units = {
                 }
                 break;
             default:
-                console.log("invalid targetUnitType received by Kelvin");
+                console.log("invalid targetUnitType received by Kelvin:"+conversion.targetUnitType);
                 conversion.output = gc.invalidString;
                 break;
          }
@@ -160,7 +158,6 @@ const temperature_units = {
 
     rankineConversions(conversion) {
         let cnvInput;
-        console.log("rankineConversions targetUnitType:"+conversion.targetUnitType);
         switch (conversion.targetUnitType) {
 
             case units[0]:
@@ -200,7 +197,7 @@ const temperature_units = {
                 }
                 break;
             default:
-                console.log("invalid targetUnitType received by Rankine");
+                console.log("invalid targetUnitType received by Rankine:"+conversion.targetUnitType);
                 conversion.output = gc.invalidString;
                 break;
         }
@@ -247,7 +244,7 @@ const temperature_units = {
                 }
                 break;
             default:
-                console.log("invalid targetUnitType received by Celsius");
+                console.log("invalid targetUnitType received by Celsius:"+conversion.targetUnitType);
                 conversion.output = gc.invalidString;
                 break;
         }
@@ -298,7 +295,7 @@ const temperature_units = {
                 }
                 break;
             default:
-                console.log("unknown Fahrenheit targetUnitType:" + conversion.targetUnitType);
+                console.log("invalid targetUnitType received by Fahrenheit:" + conversion.targetUnitType);
                 conversion.output = gc.invalidString;
                 break;
         }

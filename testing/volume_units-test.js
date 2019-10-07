@@ -377,13 +377,14 @@ describe('volume_units testing', ()=>
         {
             const results = vu.getUnits();
             expect(results).to.be.an('array').that.is.not.empty;
+            expect(results.length).to.be.equal(6);
             done();
         })
     });
 
     context('matchUnits', () =>
     {
-        it('verify matchUnits(gallons) ', (done) =>
+        it('verify gallons match using matchUnits(gallons) ', (done) =>
         {
             const unit = 'gallons';
             const results = vu.matchUnits(unit);
@@ -391,84 +392,177 @@ describe('volume_units testing', ()=>
             expect(results).to.be.a("number");
             done();
         })
+
+        it('verify liters​ match using matchUnits(liters​) ', (done) =>
+        {
+            const unit = 'liters​';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.at.least(0);
+            expect(results).to.be.a("number");
+            done();
+        })
+
+        it('verify tablespoons​ match using matchUnits(tablespoons​) ', (done) =>
+        {
+            const unit = 'tablespoons​';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.at.least(0);
+            expect(results).to.be.a("number");
+            done();
+        })
+
+        it('verify cubic-inches match using matchUnits(cubic-inches) ', (done) =>
+        {
+            const unit = 'cubic-inches';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.at.least(0);
+            expect(results).to.be.a("number");
+            done();
+        })
+
+        it('verify cubic-feet match using matchUnits(cubic-feet) ', (done) =>
+        {
+            const unit = 'cubic-feet';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.at.least(0);
+            expect(results).to.be.a("number");
+            done();
+        })
+
+        it('verify cups​ match using matchUnits(cups​) ', (done) =>
+        {
+            const unit = 'cups​';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.at.least(0);
+            expect(results).to.be.a("number");
+            done();
+        })
+
+        it('verify invalid match using matchUnits(xxx) ', (done) =>
+        {
+            const unit = 'xxx';
+            const results = vu.matchUnits(unit);
+            expect(results).to.be.equal(-1);
+            expect(results).to.be.a("number");
+            done();
+        })
     });
 
     context('lookupConversion', () =>
     {
-        it('verify lookupConversion(gallons) ', (done) =>
+        it('verify correct lookupConversion(gallons) ', (done) =>
         {
-            const conversion = {"inputUnitType":"gallons","targetUnitType":"cups","input":"2.5","response":"40","id":"11"};
-            vu.lookupConversion(conversion);
-            expect(parseFloat(conversion.response)).to.be.closeTo(40.0, gc.targetMargin);
+            const cnvObject = {"inputUnitType":"gallons","targetUnitType":"cups​","input":"2.5","response":"40","id":"11"};
+            vu.lookupConversion(cnvObject);
+            expect(parseFloat(cnvObject.response)).to.be.closeTo(40.0, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
         })
     });
 
     context('gallonsConversions', () =>
     {
-        it('verify gallonsConversions(cnvObject) ', (done) =>
+        it('verify correct cups gallonsConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"gallons","targetUnitType":"cups​","input":"2.5","response":"40","id":"0"};
             vu.gallonsConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(40.0, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
         })
     });
 
     context('cubicFeetConversions', () =>
     {
-        it('verify cubicFeetConversions(cnvObject) ', (done) =>
+        it('verify correct gallons cubicFeetConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"cubic-feet","targetUnitType":"gallons","input":"6.0","response":"44.883116","id":"0"};
             vu.cubicFeetConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(44.883116, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
         })
     });
 
     context('cupsConversions', () =>
     {
-        it('verify cupsConversions(cnvObject) ', (done) =>
+        it('verify correct gallons cupsConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"cups","targetUnitType":"gallons","input":"5.25","response":"0.328125","id":"0"};
             vu.cupsConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(0.328125, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
         })
     });
 
     context('cubicInchesConversions', () =>
     {
-        it('verify cubicInchesConversions(cnvObject) ', (done) =>
+        it('verify correct cups cubicInchesConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"cubic-inches","targetUnitType":"cups​","input":"10.5","response":"0.727273","id":"0"};
             vu.cubicInchesConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(0.727273, gc.targetMargin);
-            //expect(cnvObject.output).to.be.equal(gc.correctString);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
             done();
         })
     });
 
     context('tablespoonsConversions', () =>
     {
-        it('verify tablespoonsConversions(cnvObject) ', (done) =>
+        it('verify correct liters tablespoonsConversions(cnvObject) ', (done) =>
         {
-            const cnvObject = {"inputUnitType":"tablespoons","targetUnitType":"liters","input":"87.7","response":"1.296799","id":"0"};
+            const cnvObject = {"inputUnitType":"tablespoons","targetUnitType":"liters​","input":"87.7","response":"1.296799","id":"0"};
             vu.tablespoonsConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(1.296799, gc.targetMargin);
+            expect(cnvObject.output).to.be.equal(gc.correctString);
+            done();
+        })
+
+        it('verify incorrect liters tablespoonsConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"tablespoons","targetUnitType":"liters​","input":"87.7","response":"1.5","id":"0"};
+            vu.tablespoonsConversions(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.incorrectString);
+            done();
+        })
+
+        it('verify invalid tablespoonsConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"tablespoons","targetUnitType":"xxx","input":"87.7","response":"1.296799","id":"0"};
+            vu.tablespoonsConversions(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
             done();
         })
     });
 
     context('literConversions', () =>
     {
-        it('verify literConversions(cnvObject) ', (done) =>
+        it('verify correct cubic-inches literConversions(cnvObject) ', (done) =>
         {
             const cnvObject = {"inputUnitType":"liters​","targetUnitType":"cubic-inches","input":"9.5","response":"579.725569","id":"0"};
             vu.literConversions(cnvObject);
             expect(parseFloat(cnvObject.response)).to.be.closeTo(579.725569, gc.targetMargin);
             done();
         })
+
+        it('verify incorrect cubic-inches literConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"liters​","targetUnitType":"cubic-inches","input":"9.5","response":"579.9","id":"0"};
+            vu.literConversions(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.incorrectString);
+            done();
+        })
+
+        it('verify invalid cubic-inches literConversions(cnvObject) ', (done) =>
+        {
+            const cnvObject = {"inputUnitType":"liters​","targetUnitType":"cubic-inchs","input":"9.5","response":"579.9","id":"0"};
+            vu.literConversions(cnvObject);
+            expect(cnvObject.output).to.be.equal(gc.invalidString);
+            done();
+        })
+
+
     });
 
 });
