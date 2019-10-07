@@ -4,12 +4,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://gitlab.mobile.verity.org/tspecht/vhs-api-nodeserver.git"
+    "url": "https://github.com/spechtacular/ventera-code-test.git"
   },
   "scripts": {
-    "precommitmsg": "echo 'precommit checks' && exit 0",
-    "version": "echo $npm_package_version",
-    "start": "export NODE_ENV=test && export PORT=3000 && node ./bin/www",
+    "start": "export NODE_ENV=production && export PORT=3000 && node ./bin/www",
     "eslint": "eslint  **/*.js --fix --ignore-pattern node_modules/",
     "test": "export NODE_ENV=unit && mocha \"./testing/**/*.js\" --recursive"
   },
