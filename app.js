@@ -34,7 +34,6 @@ app.use(bodyParser.urlencoded({extended: true }));
 
 /* home page */
 app.get('/', (req, res) => {
-    console.log("headers:"+console.log(req.headers) + "\n\n\n");
     res.status(200).render('index', {
         maxConversions: gc.maxConversions,
         tempUnits: tu.getUnits(),

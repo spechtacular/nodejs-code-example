@@ -5,16 +5,13 @@ const gc = require ('../config/global_constants');
 
 const conversions = {
     processConversionForm(req, res) {
-        console.log("headers:"+console.log(req.headers) + "\n\n\n");
 
         if (req.body.conversions  &&
             req.body.conversions.length > 0) {
-                console.log("conversions:"+JSON.stringify(req.body.conversions));
                 let conversions = Array.prototype.slice.call(req.body.conversions);
                 let cnvLength = conversions.length;
                 conversions.forEach(conversion =>
                 {
-                    console.log("pcf:" + JSON.stringify(conversion));
                     if (ch.verifyConversionObject(conversion)) {
                         if (tu.matchUnits(conversion.inputUnitType) > -1) {
                             if (tu.matchUnits(conversion.targetUnitType) > -1) {
@@ -22,7 +19,7 @@ const conversions = {
                                 tu.lookupConversion(conversion);
                             } else {
                                 // mismatched units
-                                console.log("temp mismatched");
+                                console.log("temp unit mismatched");
                                 conversion.output = gc.invalidString;
                             }
                         } else {
@@ -32,11 +29,11 @@ const conversions = {
                                     vu.lookupConversion(conversion);
                                 } else {
                                     // mismatched units
-                                    console.log("volume mismatched");
+                                    console.log("volume unit mismatched");
                                     conversion.output = gc.invalidString;
                                 }
                             } else {
-                                console.log("no lookupConversion");
+                                console.log("no valid units specified");
                                 conversion.output = gc.invalidString;
                             }
                         }
