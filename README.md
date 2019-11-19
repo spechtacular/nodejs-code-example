@@ -27,8 +27,8 @@
           student’s response and authoritative answer are rounded to the tenths place.
           
     * ## Example scenarios (not exhaustive): ##
+    
 | Input Numerical Value | Input Unit of Measure | Target Unit of Measure | Student Response | Output |
-| ``` | ``` | ``` | ``` | ``` |
 | 84.2 | Fahrenheit | Rankine | 543.94 | correct|
 | 317.33 | Kelvin | Fahrenheit | 111.554 | incorrect|
 | 25.6 | cups |liters | 6.1 | correct|
